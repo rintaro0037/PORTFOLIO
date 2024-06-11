@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chart.js練習用</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>円グラフ</h1>
+    <p class="lead">使用したライブラリ：<a href="https://www.chartjs.org/" target="_blank">https://www.chartjs.org/</a></p>
+    <div id="output"></div>
+    <div class="box">
+        <h2>サッカーをやったことは？
+        </h2>
+        <div class="chart-area">
+            <canvas id="mychart-pie" class="chart-area"></canvas>
+            <div class="buttonDisp">
+                <input type="button" value="ある" id="ARU">
+                <input type="button" value="ない" onclick="answer(NAI)">
+            </div>
+        </div>
+        <!--/box-->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
