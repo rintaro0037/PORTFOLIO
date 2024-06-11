@@ -1,75 +1,62 @@
 var ctx = document.getElementById('mychart-pie');
 let ARU = document.getElementById('ARU');
 let NAI = document.getElementById('NAI');
+let pasword = document.getElementById('pas');
+let reset = document.getElementById('reset');
 
 
-window.addEventListener("load", () => {
-    document.getElementById('ARU').disabled = false;
-    document.getElementById('NAI').disabled = false;
 
-}, { once: true });
+// window.addEventListener("load", () => {
+    
+// });
 
 
 //ページ読み込み時の処理
 window.addEventListener("load", () => {
     // Local Storageから値の取り出し
-    var jsonCount1 = localStorage.getItem('storage1');
-    var jsonCount2 = localStorage.getItem('storage2');
+    var count1 = localStorage.getItem('storage1');
+    var count2 = localStorage.getItem('storage2');
+    // jsonの値をjsの値に変換
+    aruCount = JSON.parse(count1)
+    naiCount = JSON.parse(count2)
 
-    aru = JSON.parse(jsonCount1) //【※2】
-    nai = JSON.parse(jsonCount2) //【※2】
-
-
+    if (`${localStorage.getItem('btnClick')}` == true) {
+        // buttonを使用不可に
+        document.getElementById('ARU').type = 'hidden';
+        document.getElementById('NAI').type = 'hidden';
+    }
 });
 
 // Yesボタン
 ARU.addEventListener('click', () => {
-    document.getElementById('ARU').disabled = true;
-    document.getElementById('NAI').disabled = true;
-
-    aru++;
+    aruCount++;
+    // aruCountをjsonの書き方に変換
+    count1 = JSON.stringify(aruCount);
     //Local Storageに値を保存
-    // countの値をJSON形式に変換
-    jsonCount1 = JSON.stringify(aru); //【※3】
-    // Local Storageに保存
-    localStorage.setItem('storage1', jsonCount1); //【※4】
-    // URL変更
-    altURL = `https://rintaro0037.github.io/PORTFOLIO/test/index.html?aru=${aru}&nai=${nai}`;
-    location.href = altURL
-
-
+    localStorage.setItem('storage1', count1);
+    localStorage.setItem('btnClick', true);
+    location.href = './'
 });
 
 // Noボタン
 NAI.addEventListener('click', () => {
-    document.getElementById('ARU').disabled = true;
-    document.getElementById('NAI').disabled = true;
-    
-    nai++;
+    naiCount++;
+    // naiCountをjsonの書き方に変換
+    count2 = JSON.stringify(naiCount);
     //Local Storageに値を保存
-    jsonCount2 = JSON.stringify(nai); //【※3】
-    // Local Storageに保存
-    localStorage.setItem('storage2', jsonCount2); //【※4】
-    // URL変更
-    altURL = `https://rintaro0037.github.io/PORTFOLIO/test/index.html?aru=${aru}&nai=${nai}`;
-    location.href = altURL
-
-
+    localStorage.setItem('storage2', count2);
+    localStorage.setItem('btnClick', true);
+    location.href = './'
 });
 
-// URLから情報をパクる
-let url = new URL(window.location.href)
-let params = url.searchParams
-let aru = params.get('aru')
-let nai = params.get('nai')
 
-
+// 表の表示
 var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
         labels: ['ある', 'ない'],
         datasets: [{
-            data: [`${aru}`, `${nai}`],
+            data: [`${localStorage.getItem('storage1')}`, `${localStorage.getItem('storage2')}`],
             backgroundColor: ['#f33', '#0cf',],
             weight: 100,
         }],
@@ -77,6 +64,17 @@ var myChart = new Chart(ctx, {
 });
 
 
+pasword.addEventListener("change", () => {
+    if (pasword.value == 'pas') {
+        reset.disabled = false
+    }
+    else {
+        reset.disabled = true
+    }
+})
 
-
+reset.addEventListener("click", () => {
+    localStorage.clear();
+    location.href = './'
+})
 
