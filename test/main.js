@@ -1,5 +1,4 @@
 var ctx = document.getElementById('mychart-pie');
-var output = document.getElementById('output');
 let ARU = document.getElementById('ARU');
 let NAI = document.getElementById('NAI');
 
