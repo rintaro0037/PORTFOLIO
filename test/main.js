@@ -3,6 +3,13 @@ let ARU = document.getElementById('ARU');
 let NAI = document.getElementById('NAI');
 
 
+window.addEventListener("load", () => {
+    document.getElementById('ARU').disabled = false;
+    document.getElementById('NAI').disabled = false;
+
+}, { once: true });
+
+
 //ページ読み込み時の処理
 window.addEventListener("load", () => {
     // Local Storageから値の取り出し
@@ -12,10 +19,14 @@ window.addEventListener("load", () => {
     aru = JSON.parse(jsonCount1) //【※2】
     nai = JSON.parse(jsonCount2) //【※2】
 
+
 });
 
 // Yesボタン
 ARU.addEventListener('click', () => {
+    document.getElementById('ARU').disabled = true;
+    document.getElementById('NAI').disabled = true;
+
     aru++;
     //Local Storageに値を保存
     // countの値をJSON形式に変換
@@ -26,10 +37,14 @@ ARU.addEventListener('click', () => {
     altURL = `https://rintaro0037.github.io/PORTFOLIO/test/index.html?aru=${aru}&nai=${nai}`;
     location.href = altURL
 
+
 });
 
 // Noボタン
 NAI.addEventListener('click', () => {
+    document.getElementById('ARU').disabled = true;
+    document.getElementById('NAI').disabled = true;
+    
     nai++;
     //Local Storageに値を保存
     jsonCount2 = JSON.stringify(nai); //【※3】
@@ -38,6 +53,7 @@ NAI.addEventListener('click', () => {
     // URL変更
     altURL = `https://rintaro0037.github.io/PORTFOLIO/test/index.html?aru=${aru}&nai=${nai}`;
     location.href = altURL
+
 
 });
 
