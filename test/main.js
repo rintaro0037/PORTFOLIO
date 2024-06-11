@@ -1,59 +1,61 @@
 var ctx = document.getElementById('mychart-pie');
 var output = document.getElementById('output');
 let ARU = document.getElementById('ARU');
+let NAI = document.getElementById('NAI');
+
+
+//ページ読み込み時の処理
+window.addEventListener("load", () => {
+    // Local Storageから値の取り出し
+    var jsonCount1 = localStorage.getItem('storage1');
+    var jsonCount2 = localStorage.getItem('storage2');
+
+    aru = JSON.parse(jsonCount1) //【※2】
+    nai = JSON.parse(jsonCount2) //【※2】
+
+});
+
+// Yesボタン
+ARU.addEventListener('click', () => {
+    aru++;
+    //Local Storageに値を保存
+    // countの値をJSON形式に変換
+    jsonCount1 = JSON.stringify(aru); //【※3】
+    // Local Storageに保存
+    localStorage.setItem('storage1', jsonCount1); //【※4】
+    // URL変更
+    altURL = `https://rintaro0037.github.io/PORTFOLIO/test/index.html?aru=${aru}&nai=${nai}`;
+    location.href = altURL
+
+});
+
+// Noボタン
+NAI.addEventListener('click', () => {
+    nai++;
+    //Local Storageに値を保存
+    jsonCount2 = JSON.stringify(nai); //【※3】
+    // Local Storageに保存
+    localStorage.setItem('storage2', jsonCount2); //【※4】
+    // URL変更
+    altURL = `https://rintaro0037.github.io/PORTFOLIO/test/index.html?aru=${aru}&nai=${nai}`;
+    location.href = altURL
+
+});
 
 // URLから情報をパクる
 let url = new URL(window.location.href)
 let params = url.searchParams
 let aru = params.get('aru')
+let nai = params.get('nai')
 
-// const ARU = 1
-const NAI = 2
-
-let Ynum = 0
-let Nnum = 0
-
-//ページ読み込み時の処理
-window.addEventListener("load",()=>{
-    //Local Storageの値を読み込み
-     var jsonCount = localStorage.getItem('storage'); //【※1】
-     aru = JSON.parse(jsonCount) //【※2】
- 
- });
-
- ARU.addEventListener('click', ()=> {
-    aru++;
-   //Local Storageに値を保存
-    jsonCount = JSON.stringify(aru); //【※3】
-    localStorage.setItem('storage',jsonCount); //【※4】
-    
-    console.log(jsonCount)
-});
-
-
-// function answer(ans) {
-//     switch (ans) {
-//         case ARU:
-//             Ynum++
-//             console.log(Ynum)
-//             break;
-
-//         case NAI:
-//             Nnum++
-//             console.log(Nnum)
-//             break;
-//     }
-//     }
-
-    let N = Nnum
 
 var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
         labels: ['ある', 'ない'],
         datasets: [{
-            data: [`${aru}`, `${N}`],
-            backgroundColor: ['#f88', '#484',],
+            data: [`${aru}`, `${nai}`],
+            backgroundColor: ['#f33', '#0cf',],
             weight: 100,
         }],
     },
