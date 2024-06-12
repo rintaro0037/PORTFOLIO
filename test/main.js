@@ -2,7 +2,7 @@ var ctx = document.getElementById('mychart-pie');
 let Yes = document.getElementById('Yes');
 let No = document.getElementById('No');
 let pasword = document.getElementById('pas');
-let reset = document.getElementById('reset');
+let textForm = document.getElementById('textForm');
 let dummy = document.getElementById('dummy');
 let myChart;
 
@@ -26,6 +26,9 @@ window.addEventListener("load", () => {
     });
     Yes.disabled = false;
     No.disabled = false;
+    if (Deus == 'exist') {
+        dummy.disabled = false;
+    };
 });
 
 // 値をcount upしてグラフを更新する処理
@@ -63,28 +66,35 @@ No.addEventListener('click', () => {
     countUp('storage2', 1);
 });
 
+// リセット処理
+function reset() {
+    localStorage.clear();
+    myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
+    myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
+    myChart.update();
+    Yes.disabled = false;
+    No.disabled = false;
+    dummy.disabled = true;
+}
+
 // ダミーボタン
 dummy.addEventListener("click", () => {
-    let dummyBox = confirm("リセットしますか？")
-    if (dummyBox) {
-        alert("させませ～ん笑")
+    let dummyBox = confirm("リセットしますか？");
+    if (Deus == 'exist' && dummyBox == true) {
+        reset();
+    } else if (dummyBox == true) {
+        alert("させませ～ん笑");
     }
 })
 
 // リセット
-reset.addEventListener("submit", (event) => {
+textForm.addEventListener("submit", (event) => {
     if (pasword.value == 'pas') {
-        localStorage.clear();
-        myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
-        myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
-        myChart.update();
-        Yes.disabled = false;
-        No.disabled = false;
-        dummy.disabled = true;
+        reset();
     }
     // 管理者モードへ移行
     else if (pasword.value == 'god') {
-        location.href = `./Chart_test.html?Deus=exist`
+        location.href = `./Chart_test.html?Deus=exist`;
     }
     // 通常の処理を防ぐ　今回はsubmitの処理
     event.preventDefault();
