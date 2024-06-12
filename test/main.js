@@ -7,13 +7,6 @@ let myChart;
 
 //ページ読み込み時の処理
 window.addEventListener("load", () => {
-    // Local Storageから値の取り出し
-    var count1 = localStorage.getItem('storage1');
-    var count2 = localStorage.getItem('storage2');
-    // jsonの値をjsの値に変換
-    aruCount = JSON.parse(count1)
-    naiCount = JSON.parse(count2)
-
     // 表の表示
     myChart = new Chart(ctx, {
         type: 'pie',
@@ -31,17 +24,17 @@ window.addEventListener("load", () => {
     NAI.disabled = false
 });
 
-// 
+// 値をcount upしてグラフを更新する関数
 function countUp(storageKey, index) {
-    count = Number(localStorage.getItem(storageKey)) + 1
+    let count = Number(localStorage.getItem(storageKey)) + 1
 
-    // aruCountをjsonの書き方に変換
-    count1 = JSON.stringify(count);
+    // countをjsonの書き方に変換
+    jsonCount = JSON.stringify(count);
     //Local Storageに値を保存
-    localStorage.setItem(storageKey, count1);
-    localStorage.setItem('btnClick', true);
-
+    localStorage.setItem(storageKey, jsonCount);
+    // myChartのデータを書き換え
     myChart.data.datasets[0].data[index] = `${localStorage.getItem(storageKey)}`;
+    // myChartを更新
     myChart.update();
 
     ARU.disabled = true
@@ -50,6 +43,7 @@ function countUp(storageKey, index) {
 
 // Yesボタン
 ARU.addEventListener('click', () => {
+    // countUp()で定義した変数に値を代入して実行
     countUp('storage1', 0)
 });
 
