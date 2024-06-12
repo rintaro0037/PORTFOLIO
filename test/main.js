@@ -1,6 +1,6 @@
 var ctx = document.getElementById('mychart-pie');
-let ARU = document.getElementById('ARU');
-let NAI = document.getElementById('NAI');
+let Yes = document.getElementById('Yes');
+let No = document.getElementById('No');
 let pasword = document.getElementById('pas');
 let reset = document.getElementById('reset');
 let myChart;
@@ -20,11 +20,11 @@ window.addEventListener("load", () => {
         },
     });
 
-    ARU.disabled = false
-    NAI.disabled = false
+    Yes.disabled = false;
+    No.disabled = false;
 });
 
-// 値をcount upしてグラフを更新する関数
+// 値をcount upしてグラフを更新する処理
 function countUp(storageKey, index) {
     let count = Number(localStorage.getItem(storageKey)) + 1
 
@@ -37,19 +37,19 @@ function countUp(storageKey, index) {
     // myChartを更新
     myChart.update();
 
-    ARU.disabled = true
-    NAI.disabled = true
-}
+    Yes.disabled = true;
+    No.disabled = true;
+};
 
 // Yesボタン
-ARU.addEventListener('click', () => {
+Yes.addEventListener('click', () => {
     // countUp()で定義した変数に値を代入して実行
-    countUp('storage1', 0)
+    countUp('storage1', 0);
 });
 
 // Noボタン
-NAI.addEventListener('click', () => {
-    countUp('storage2', 1)
+No.addEventListener('click', () => {
+    countUp('storage2', 1);
 });
 
 // リセット
@@ -59,9 +59,9 @@ reset.addEventListener("submit", (event) => {
         myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
         myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
         myChart.update();
-        ARU.disabled = false
-        NAI.disabled = false
+        Yes.disabled = false;
+        No.disabled = false;
     }
     // 通常の処理を防ぐ　今回はsubmitの処理
     event.preventDefault();
-})
+});
