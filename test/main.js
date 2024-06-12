@@ -5,9 +5,6 @@ let pasword = document.getElementById('pas');
 let reset = document.getElementById('reset');
 let myChart;
 
-
-
-
 //ページ読み込み時の処理
 window.addEventListener("load", () => {
     // Local Storageから値の取り出し
@@ -36,7 +33,7 @@ window.addEventListener("load", () => {
 
 // 
 function countUp(storageKey, index) {
-    count = localStorage.getItem(storageKey) + 1
+    count = Number(localStorage.getItem(storageKey)) + 1
 
     // aruCountをjsonの書き方に変換
     count1 = JSON.stringify(count);
@@ -49,7 +46,6 @@ function countUp(storageKey, index) {
 
     ARU.disabled = true
     NAI.disabled = true
-
 }
 
 // Yesボタン
@@ -62,6 +58,7 @@ NAI.addEventListener('click', () => {
     countUp('storage2', 1)
 });
 
+// リセット
 reset.addEventListener("submit", (event) => {
     if (pasword.value == 'pas') {
         localStorage.clear();
