@@ -6,6 +6,10 @@ let reset = document.getElementById('reset');
 let dummy = document.getElementById('dummy');
 let myChart;
 
+let url = new URL(window.location.href)
+let params = url.searchParams
+Deus = params.get('Deus')
+
 //ページ読み込み時の処理
 window.addEventListener("load", () => {
     // 表の表示
@@ -20,7 +24,6 @@ window.addEventListener("load", () => {
             }],
         },
     });
-
     Yes.disabled = false;
     No.disabled = false;
 });
@@ -38,8 +41,14 @@ function countUp(storageKey, index) {
     // myChartを更新
     myChart.update();
 
-    Yes.disabled = true;
-    No.disabled = true;
+    // 管理者モード
+    if (Deus == 'exist') {
+        Yes.disabled = false;
+        No.disabled = false;
+    } else {
+        Yes.disabled = true;
+        No.disabled = true;
+    }
     dummy.disabled = false;
 };
 
@@ -73,7 +82,10 @@ reset.addEventListener("submit", (event) => {
         No.disabled = false;
         dummy.disabled = true;
     }
+    // 管理者モードへ移行
+    else if (pasword.value == 'god') {
+        location.href = `./Chart_test.html?Deus=exist`
+    }
     // 通常の処理を防ぐ　今回はsubmitの処理
     event.preventDefault();
 });
-
