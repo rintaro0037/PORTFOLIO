@@ -30,10 +30,12 @@ window.addEventListener("load", () => {
         },
     });
 
+    ARU.disabled = false
+    NAI.disabled = false
+    console.log(`${localStorage.getItem('btnClick')}`)
     if (`${localStorage.getItem('btnClick')}` == true) {
         // buttonを使用不可に
-        document.getElementById('ARU').type = 'hidden';
-        document.getElementById('NAI').type = 'hidden';
+        
     }
 });
 
@@ -46,18 +48,11 @@ ARU.addEventListener('click', () => {
     //Local Storageに値を保存
     localStorage.setItem('storage1', count1);
     localStorage.setItem('btnClick', true);
-    
-    myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['ある', 'ない'],
-            datasets: [{
-                data: [`${localStorage.getItem('storage1')}`, `${localStorage.getItem('storage2')}`],
-                backgroundColor: ['#f33', '#0cf',],
-                weight: 100,
-            }],
-        },
-    });
+    myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
+    myChart.update();
+    ARU.disabled = true
+    NAI.disabled = true
+
 });
 
 // Noボタン
@@ -68,7 +63,10 @@ NAI.addEventListener('click', () => {
     //Local Storageに値を保存
     localStorage.setItem('storage2', count2);
     localStorage.setItem('btnClick', true);
-    location.href = './Chart_test.html'
+    myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
+    myChart.update();
+    ARU.disabled = true
+    NAI.disabled = true
 });
 
 
