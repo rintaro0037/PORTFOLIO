@@ -3,6 +3,7 @@ let Yes = document.getElementById('Yes');
 let No = document.getElementById('No');
 let pasword = document.getElementById('pas');
 let reset = document.getElementById('reset');
+let dummy = document.getElementById('dummy');
 let myChart;
 
 //ページ読み込み時の処理
@@ -39,6 +40,7 @@ function countUp(storageKey, index) {
 
     Yes.disabled = true;
     No.disabled = true;
+    dummy.disabled = false;
 };
 
 // Yesボタン
@@ -52,6 +54,14 @@ No.addEventListener('click', () => {
     countUp('storage2', 1);
 });
 
+// ダミーボタン
+dummy.addEventListener("click", () => {
+    let dummyBox = confirm("リセットしますか？")
+    if (dummyBox) {
+        alert("させませ～ん笑")
+    }
+})
+
 // リセット
 reset.addEventListener("submit", (event) => {
     if (pasword.value == 'pas') {
@@ -61,7 +71,9 @@ reset.addEventListener("submit", (event) => {
         myChart.update();
         Yes.disabled = false;
         No.disabled = false;
+        dummy.disabled = true;
     }
     // 通常の処理を防ぐ　今回はsubmitの処理
     event.preventDefault();
 });
+
