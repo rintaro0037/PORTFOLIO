@@ -3,12 +3,9 @@ let ARU = document.getElementById('ARU');
 let NAI = document.getElementById('NAI');
 let pasword = document.getElementById('pas');
 let reset = document.getElementById('reset');
+let myChart;
 
 
-
-// window.addEventListener("load", () => {
-    
-// });
 
 
 //ページ読み込み時の処理
@@ -20,12 +17,26 @@ window.addEventListener("load", () => {
     aruCount = JSON.parse(count1)
     naiCount = JSON.parse(count2)
 
+    // 表の表示
+    myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['ある', 'ない'],
+            datasets: [{
+                data: [`${localStorage.getItem('storage1')}`, `${localStorage.getItem('storage2')}`],
+                backgroundColor: ['#f33', '#0cf',],
+                weight: 100,
+            }],
+        },
+    });
+
     if (`${localStorage.getItem('btnClick')}` == true) {
         // buttonを使用不可に
         document.getElementById('ARU').type = 'hidden';
         document.getElementById('NAI').type = 'hidden';
     }
 });
+
 
 // Yesボタン
 ARU.addEventListener('click', () => {
@@ -35,7 +46,18 @@ ARU.addEventListener('click', () => {
     //Local Storageに値を保存
     localStorage.setItem('storage1', count1);
     localStorage.setItem('btnClick', true);
-    location.href = './Chart_test.html'
+    
+    myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['ある', 'ない'],
+            datasets: [{
+                data: [`${localStorage.getItem('storage1')}`, `${localStorage.getItem('storage2')}`],
+                backgroundColor: ['#f33', '#0cf',],
+                weight: 100,
+            }],
+        },
+    });
 });
 
 // Noボタン
@@ -50,18 +72,6 @@ NAI.addEventListener('click', () => {
 });
 
 
-// 表の表示
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['ある', 'ない'],
-        datasets: [{
-            data: [`${localStorage.getItem('storage1')}`, `${localStorage.getItem('storage2')}`],
-            backgroundColor: ['#f33', '#0cf',],
-            weight: 100,
-        }],
-    },
-});
 
 
 pasword.addEventListener("change", () => {
