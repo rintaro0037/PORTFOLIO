@@ -65,6 +65,8 @@ reset.addEventListener("submit", (event) => {
         myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
         myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
         myChart.update();
+        ARU.disabled = false
+        NAI.disabled = false
     }
     // 通常の処理を防ぐ　今回はsubmitの処理
     event.preventDefault();
