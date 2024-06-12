@@ -32,57 +32,43 @@ window.addEventListener("load", () => {
 
     ARU.disabled = false
     NAI.disabled = false
-    console.log(`${localStorage.getItem('btnClick')}`)
-    if (`${localStorage.getItem('btnClick')}` == true) {
-        // buttonを使用不可に
-        
-    }
 });
 
+// 
+function countUp(storageKey, index) {
+    count = localStorage.getItem(storageKey) + 1
 
-// Yesボタン
-ARU.addEventListener('click', () => {
-    aruCount++;
     // aruCountをjsonの書き方に変換
-    count1 = JSON.stringify(aruCount);
+    count1 = JSON.stringify(count);
     //Local Storageに値を保存
-    localStorage.setItem('storage1', count1);
+    localStorage.setItem(storageKey, count1);
     localStorage.setItem('btnClick', true);
-    myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
+
+    myChart.data.datasets[0].data[index] = `${localStorage.getItem(storageKey)}`;
     myChart.update();
+
     ARU.disabled = true
     NAI.disabled = true
 
+}
+
+// Yesボタン
+ARU.addEventListener('click', () => {
+    countUp('storage1', 0)
 });
 
 // Noボタン
 NAI.addEventListener('click', () => {
-    naiCount++;
-    // naiCountをjsonの書き方に変換
-    count2 = JSON.stringify(naiCount);
-    //Local Storageに値を保存
-    localStorage.setItem('storage2', count2);
-    localStorage.setItem('btnClick', true);
-    myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
-    myChart.update();
-    ARU.disabled = true
-    NAI.disabled = true
+    countUp('storage2', 1)
 });
 
-
-
-
-pasword.addEventListener("change", () => {
+reset.addEventListener("submit", (event) => {
     if (pasword.value == 'pas') {
-        reset.disabled = false
+        localStorage.clear();
+        myChart.data.datasets[0].data[0] = `${localStorage.getItem('storage1')}`;
+        myChart.data.datasets[0].data[1] = `${localStorage.getItem('storage2')}`;
+        myChart.update();
     }
-    else {
-        reset.disabled = true
-    }
+    // 通常の処理を防ぐ　今回はsubmitの処理
+    event.preventDefault();
 })
-
-reset.addEventListener("click", () => {
-    localStorage.clear();
-    location.href = './Chart_test.html'
-})
-
