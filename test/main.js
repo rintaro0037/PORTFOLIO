@@ -41,7 +41,7 @@ function countUp(storageKey, index) {
     // myChartを更新
     myChart.update();
 
-    // 管理者モード
+    // 管理者モード(ボタンが押し放題)
     if (Deus == 'exist') {
         Yes.disabled = false;
         No.disabled = false;
