@@ -35,7 +35,7 @@ ARU.addEventListener('click', () => {
     //Local Storageに値を保存
     localStorage.setItem('storage1', count1);
     localStorage.setItem('btnClick', true);
-    location.href = './'
+    location.href = './Chart_test.html'
 });
 
 // Noボタン
@@ -46,7 +46,7 @@ NAI.addEventListener('click', () => {
     //Local Storageに値を保存
     localStorage.setItem('storage2', count2);
     localStorage.setItem('btnClick', true);
-    location.href = './'
+    location.href = './Chart_test.html'
 });
 
 
@@ -75,6 +75,6 @@ pasword.addEventListener("change", () => {
 
 reset.addEventListener("click", () => {
     localStorage.clear();
-    location.href = './'
+    location.href = './Chart_test.html'
 })
 

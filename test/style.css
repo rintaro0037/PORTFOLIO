@@ -12,7 +12,6 @@
 
 /*========= レイアウトのためのCSS ===============*/
 
-
 body{
   background:#ECF2FC;
 }
@@ -36,4 +35,10 @@ h1{
   padding: 20px;
   background:#fff;
   text-align: center;
+}
+
+#reset {
+  background-color: #ECF2FC;
+  border: #ECF2FC;
+  color: #ECF2FC;
 }
